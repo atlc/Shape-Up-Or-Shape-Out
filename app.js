@@ -15,8 +15,8 @@ class Shape {
 }
 
 class Rectangle extends Shape {
-    constructor() {
-        super();
+    constructor(width, height) {
+        super('Rectangle', width, height);
     }
 }
 
@@ -39,3 +39,26 @@ class Triangle extends Shape {
         super();
     }
 }
+
+// Global Shape object array
+let shapes = []
+
+$('#rectangleBtn').click(function() {
+    let newRect = new Rectangle($('#rectWidthInput').val(),$('#rectHeightInput').val());
+    shapes.push(newRect);
+    console.log(newRect);
+    console.log(newRect.area());
+    console.log(newRect.perimeter());
+});
+
+$('#squareBtn').click(function() {
+    console.log(this);
+});
+
+$('#circleBtn').click(function() {
+    console.log(this);
+});
+
+$('#triangleBtn').click(function() {
+    console.log(this);
+});
