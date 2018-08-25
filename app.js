@@ -21,44 +21,59 @@ class Rectangle extends Shape {
 }
 
 class Square extends Shape {
-    constructor() {
-        super();
-        
+    constructor(length) {
+        super('Square', length, length);
     }
 }
 
 class Circle extends Shape {
     constructor(radius) {
-        super();
+        super('Circle', radius * 2, radius * 2); // Each circle has a width and height of their diameter 
         this.radius = radius;
+    }
+
+    area() {
+        return (Math.PI * (this.radius ** 2));
+    }
+    
+    perimeter() {
+        return (Math.PI * this.radius);
     }
 }
 
 class Triangle extends Shape {
-    constructor() {
-        super();
+    constructor(height) {
+        super('Triangle', height, height);
+    }
+
+    area() {
+        return ((this.height ** 2) / 2);
+    }
+
+    perimeter() {
+        return ((2 * this.height) + (Math.SQRT2 * this.height));
     }
 }
 
 // Global Shape object array
 let shapes = []
 
-$('#rectangleBtn').click(function() {
-    let newRect = new Rectangle($('#rectWidthInput').val(),$('#rectHeightInput').val());
-    shapes.push(newRect);
-    console.log(newRect);
-    console.log(newRect.area());
-    console.log(newRect.perimeter());
+$('#rectangleBtn').click(function () {
+    let rect = new Rectangle($('#rectWidthInput').val(), $('#rectHeightInput').val());
+    shapes.push(rect);
 });
 
-$('#squareBtn').click(function() {
-    console.log(this);
+$('#squareBtn').click(function () {
+    let square = new Square($('#squareInput').val());
+    shapes.push(square);
 });
 
-$('#circleBtn').click(function() {
-    console.log(this);
+$('#circleBtn').click(function () {
+    let circ = new Circle($('#circleInput').val());
+    shapes.push(circ);
 });
 
-$('#triangleBtn').click(function() {
-    console.log(this);
+$('#triangleBtn').click(function () {
+    let tri = new Triangle($('#triangleInput').val());
+    shapes.push(tri);
 });
