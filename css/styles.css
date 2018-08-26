@@ -16,3 +16,18 @@
     border: 2px solid black;
 }
 
+.Square {
+    background-color: red;
+}
+
+.Rectangle {
+    background-color: green;
+}
+
+.Circle {
+    background-color: purple;
+}
+
+.Triangle {
+    background-color: yellow;
+}

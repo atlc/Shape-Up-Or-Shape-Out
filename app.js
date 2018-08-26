@@ -56,24 +56,49 @@ class Triangle extends Shape {
 }
 
 // Global Shape object array
-let shapes = []
+let shapes = [];
 
-$('#rectangleBtn').click(function () {
+function draw(shape) {
+    let newDiv = document.createElement("div");
+    newDiv.className = `${shape.name}`;
+    newDiv.style.width = `${shape.width}px`;
+    newDiv.style.height = `${shape.height}px`;
+    $('#canvas').append(newDiv);
+}
+
+function describe(shape) {
+    $('#shapeName').append(shape.name);
+    $('#shapeWidth').append(shape.width);
+    $('#shapeHeight').append(shape.height);
+    $('#shapeRadius').append(shape.radius);
+    $('#shapeArea').append(shape.area());
+    $('#shapePerimeter').append(shape.perimeter());
+}
+
+$('#rectangleBtn').click(() => {
     let rect = new Rectangle($('#rectWidthInput').val(), $('#rectHeightInput').val());
+    draw(rect);
+    describe(rect);
     shapes.push(rect);
 });
 
 $('#squareBtn').click(function () {
     let square = new Square($('#squareInput').val());
+    draw(square);
+    describe(square);
     shapes.push(square);
 });
 
 $('#circleBtn').click(function () {
     let circ = new Circle($('#circleInput').val());
+    draw(circ);
+    describe(circ);
     shapes.push(circ);
 });
 
 $('#triangleBtn').click(function () {
     let tri = new Triangle($('#triangleInput').val());
+    draw(tri);
+    describe(tri);
     shapes.push(tri);
 });
