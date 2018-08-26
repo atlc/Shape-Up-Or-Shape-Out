@@ -11,6 +11,7 @@
 }
 
 #canvas {
+    position: relative;
     height: 600px;
     width: 600px;
     border: 2px solid black;
@@ -18,16 +19,24 @@
 
 .Square {
     background-color: red;
+    position: absolute;
 }
 
 .Rectangle {
     background-color: green;
+    position: absolute;
 }
 
 .Circle {
     background-color: purple;
+    position: absolute;
 }
 
 .Triangle {
-    background-color: yellow;
+    width: 0; 
+    height: 0; 
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid yellow;
+    position: absolute;
 }

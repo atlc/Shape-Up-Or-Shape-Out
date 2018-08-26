@@ -33,11 +33,11 @@ class Circle extends Shape {
     }
 
     area() {
-        return (Math.PI * (this.radius ** 2));
+        return Math.floor((Math.PI * (this.radius ** 2)));
     }
     
     perimeter() {
-        return (Math.PI * this.radius);
+        return Math.floor((Math.PI * this.radius));
     }
 }
 
@@ -47,11 +47,11 @@ class Triangle extends Shape {
     }
 
     area() {
-        return ((this.height ** 2) / 2);
+        return Math.floor((this.height ** 2) / 2);
     }
 
     perimeter() {
-        return ((2 * this.height) + (Math.SQRT2 * this.height));
+        return Math.floor((2 * this.height) + (Math.SQRT2 * this.height));
     }
 }
 
@@ -59,10 +59,12 @@ class Triangle extends Shape {
 let shapes = [];
 
 function draw(shape) {
-    let newDiv = document.createElement("div");
+    let newDiv = document.createElement('div');
     newDiv.className = `${shape.name}`;
     newDiv.style.width = `${shape.width}px`;
     newDiv.style.height = `${shape.height}px`;
+    newDiv.style.top = `${Math.abs(Math.floor((Math.random() * 600)+1)-shape.height)}px`
+    newDiv.style.left = `${Math.abs(Math.floor((Math.random() * 600)+1)-shape.width)}px`
     $('#canvas').append(newDiv);
 }
 
