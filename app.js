@@ -37,7 +37,7 @@ class Circle extends Shape {
     }
     
     perimeter() {
-        return Math.floor((Math.PI * this.radius));
+        return Math.floor((Math.PI * this.radius * 2));
     }
 }
 
@@ -55,9 +55,6 @@ class Triangle extends Shape {
     }
 }
 
-// Global Shape object array
-let shapes = [];
-
 function draw(shape) {
     let drawing = document.createElement('div');
     drawing.className = `${shape.name}`;
@@ -65,15 +62,27 @@ function draw(shape) {
     if (drawing.className == 'Circle') {
         drawing.style.borderRadius = '50%';
     } else if (drawing.className == 'Triangle') {
-        drawing.style.borderBottom = `${shape.height}px solid yellow`
-        drawing.style.borderRight = `${(shape.height)}px solid transparent`
+        drawing.style.borderBottom = `${shape.height}px solid yellow`;
+        drawing.style.borderRight = `${(shape.height)}px solid transparent`;
     }
 
     drawing.style.width = `${shape.width}px`;
     drawing.style.height = `${shape.height}px`;
-    drawing.style.top = `${Math.abs(Math.floor((Math.random() * 600)+1)-shape.height)}px`
-    drawing.style.left = `${Math.abs(Math.floor((Math.random() * 600)+1)-shape.width)}px`
+    drawing.style.top = `${Math.abs(Math.floor((Math.random() * 600)+1)-shape.height)}px`;
+    drawing.style.left = `${Math.abs(Math.floor((Math.random() * 600)+1)-shape.width)}px`;
     $('#canvas').append(drawing);
+    attachEvents(drawing, shape);
+}
+
+function attachEvents(drawing, shape) {
+    $(drawing).click(() => {
+        describe(shape);
+    });
+
+    $(drawing).dblclick(() => {
+        delete shape;
+        drawing.parentNode.removeChild(drawing);
+    });
 }
 
 function describe(shape) {
@@ -88,27 +97,19 @@ function describe(shape) {
 $('#rectangleBtn').click(() => {
     let rect = new Rectangle($('#rectWidthInput').val(), $('#rectHeightInput').val());
     draw(rect);
-    describe(rect);
-    shapes.push(rect);
 });
 
-$('#squareBtn').click(function () {
+$('#squareBtn').click(() => {
     let square = new Square($('#squareInput').val());
     draw(square);
-    describe(square);
-    shapes.push(square);
 });
 
-$('#circleBtn').click(function () {
+$('#circleBtn').click(() => {
     let circ = new Circle($('#circleInput').val());
     draw(circ);
-    describe(circ);
-    shapes.push(circ);
 });
 
-$('#triangleBtn').click(function () {
+$('#triangleBtn').click(() => {
     let tri = new Triangle($('#triangleInput').val());
     draw(tri);
-    describe(tri);
-    shapes.push(tri);
 });
