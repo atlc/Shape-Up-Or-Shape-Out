@@ -59,22 +59,30 @@ class Triangle extends Shape {
 let shapes = [];
 
 function draw(shape) {
-    let newDiv = document.createElement('div');
-    newDiv.className = `${shape.name}`;
-    newDiv.style.width = `${shape.width}px`;
-    newDiv.style.height = `${shape.height}px`;
-    newDiv.style.top = `${Math.abs(Math.floor((Math.random() * 600)+1)-shape.height)}px`
-    newDiv.style.left = `${Math.abs(Math.floor((Math.random() * 600)+1)-shape.width)}px`
-    $('#canvas').append(newDiv);
+    let drawing = document.createElement('div');
+    drawing.className = `${shape.name}`;
+
+    if (drawing.className == 'Circle') {
+        drawing.style.borderRadius = '50%';
+    } else if (drawing.className == 'Triangle') {
+        drawing.style.borderBottom = `${shape.height}px solid yellow`
+        drawing.style.borderRight = `${(shape.height)}px solid transparent`
+    }
+
+    drawing.style.width = `${shape.width}px`;
+    drawing.style.height = `${shape.height}px`;
+    drawing.style.top = `${Math.abs(Math.floor((Math.random() * 600)+1)-shape.height)}px`
+    drawing.style.left = `${Math.abs(Math.floor((Math.random() * 600)+1)-shape.width)}px`
+    $('#canvas').append(drawing);
 }
 
 function describe(shape) {
-    $('#shapeName').append(shape.name);
-    $('#shapeWidth').append(shape.width);
-    $('#shapeHeight').append(shape.height);
-    $('#shapeRadius').append(shape.radius);
-    $('#shapeArea').append(shape.area());
-    $('#shapePerimeter').append(shape.perimeter());
+    $('#shapeName').html(shape.name);
+    $('#shapeWidth').html(shape.width);
+    $('#shapeHeight').html(shape.height);
+    $('#shapeRadius').html(shape.radius);
+    $('#shapeArea').html(shape.area());
+    $('#shapePerimeter').html(shape.perimeter());
 }
 
 $('#rectangleBtn').click(() => {
