@@ -60,16 +60,38 @@ function draw(shape) {
     drawing.className = `${shape.name}`;
 
     if (drawing.className == 'Circle') {
+        if (shape.radius > 300) {
+            alert('This radius is too large for the canvas, and will be set to 75px.');
+            shape.radius = 75;
+            shape.width = shape.radius * 2;
+            shape.height = shape.radius * 2;
+        }
         drawing.style.borderRadius = '50%';
-    } else if (drawing.className == 'Triangle') {
+    }
+
+    if (drawing.className !== 'Circle') {
+        if (shape.width >= 599) {
+            alert('This width is too large for the canvas, and will be set to 150px.');
+            shape.width = 150;
+        }
+
+        if (shape.height >= 599) {
+            alert('This height is too large for the canvas, and will be set to 150px.');
+            shape.height = 150;
+        }
+    }
+
+    if (drawing.className == 'Triangle') {
         drawing.style.borderBottom = `${shape.height}px solid yellow`;
         drawing.style.borderRight = `${(shape.height)}px solid transparent`;
     }
 
     drawing.style.width = `${shape.width}px`;
     drawing.style.height = `${shape.height}px`;
-    drawing.style.top = `${Math.abs(Math.floor((Math.random() * 600)+1)-shape.height)}px`;
-    drawing.style.left = `${Math.abs(Math.floor((Math.random() * 600)+1)-shape.width)}px`;
+    drawing.style.top = `${Math.floor(Math.random() * (600 - 1 - shape.height))}px`;
+    drawing.style.left = `${Math.floor(Math.random() * (600 - 1 - shape.width))}px`;
+
+
     $('#canvas').append(drawing);
     attachEvents(drawing, shape);
 }
@@ -86,30 +108,32 @@ function attachEvents(drawing, shape) {
 }
 
 function describe(shape) {
-    $('#shapeName').html(shape.name);
-    $('#shapeWidth').html(shape.width);
-    $('#shapeHeight').html(shape.height);
-    $('#shapeRadius').html(shape.radius);
-    $('#shapeArea').html(shape.area());
-    $('#shapePerimeter').html(shape.perimeter());
+    $('#shapeName').html(`${shape.name}`);
+    $('#shapeWidth').html(`${shape.width} px`);
+    $('#shapeHeight').html(`${shape.height} px`);
+
+    (shape.radius == undefined) ? $('#shapeRadius').html(' ') : $('#shapeRadius').html(`${shape.radius} px`);
+
+    $('#shapeArea').html(`${shape.area().toLocaleString()} px`);
+    $('#shapePerimeter').html(`${shape.perimeter().toLocaleString()} px`);
 }
 
 $('#rectangleBtn').click(() => {
-    let rect = new Rectangle($('#rectWidthInput').val(), $('#rectHeightInput').val());
+    let rect = new Rectangle(parseInt($('#rectWidthInput').val(), 10), parseInt($('#rectHeightInput').val()), 10);
     draw(rect);
 });
 
 $('#squareBtn').click(() => {
-    let square = new Square($('#squareInput').val());
+    let square = new Square(parseInt($('#squareInput').val()), 10);
     draw(square);
 });
 
 $('#circleBtn').click(() => {
-    let circ = new Circle($('#circleInput').val());
+    let circ = new Circle(parseInt($('#circleInput').val()), 10);
     draw(circ);
 });
 
 $('#triangleBtn').click(() => {
-    let tri = new Triangle($('#triangleInput').val());
+    let tri = new Triangle(parseInt($('#triangleInput').val()), 10);
     draw(tri);
 });
